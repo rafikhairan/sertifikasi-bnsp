@@ -41,9 +41,9 @@ class RegistrationController extends Controller
             return redirect()->route('registrations.show', $user->id)->with('error', 'Anda sudah melakukan pendaftaran, mohon tunggu update status pengajuan dari admin');
         }
 
-        $provinces = Province::with('regencies')->get();
-        $regencies = Regency::with('districts')->get();
-        $districts = District::all();
+        $provinces = Province::all();
+        $regencies = Regency::with('province')->get();
+        $districts = District::with('regency')->get();
         $countries = Country::all();
         
         return view('registrations.create', compact('user', 'provinces', 'regencies', 'districts', 'countries'));
